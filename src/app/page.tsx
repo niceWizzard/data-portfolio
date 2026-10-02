@@ -33,7 +33,7 @@ export default function Home() {
             </h2>
 
             <p className="text-xl text-white/70 leading-relaxed font-light">
-              I&apos;m a <span className="text-white font-semibold">fullstack web developer</span> eager to elevate your ideas to the moon. I specialize in building fast, scalable, and visually engaging web applications from the ground up.
+              I&apos;m a <span className="text-white font-semibold">data analyst</span> passionate about transforming raw data into actionable insights and data-driven strategies. I specialize in statistical analysis, data visualization, and predictive modeling.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-10">
@@ -68,25 +68,23 @@ export default function Home() {
               className="card-glass p-8 flex flex-col gap-6 group hover:border-primary/30"
             >
               <div className="flex flex-col gap-2">
-                <h3 className="text-3xl font-bold text-primary italic tracking-tight">Web Development</h3>
+                <h3 className="text-3xl font-bold text-primary italic tracking-tight">Data Analysis & Analytics</h3>
                 <div className="h-1 w-12 bg-primary/40 rounded group-hover:w-20 transition-all"></div>
                 <p className="text-white/50 leading-relaxed">
-                  I can develop full stack website applications efficiently. I am knowledgeable in the following web technologies:
+                  I transform complex datasets into clear, interactive visualizations and strategic insights. Proficient in tools and languages including:
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <ul className="space-y-2 text-white/70">
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> React</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Next.js</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> TypeScript</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Node.js</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Tailwind CSS</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> SQL (PostgreSQL, MySQL)</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Python (Pandas, NumPy)</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> R & RStudio</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Power BI</li>
                 </ul>
                 <ul className="space-y-2 text-white/70">
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Python</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Django</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> PHP</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Laravel</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Exploratory Data Analysis</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Data Wrangling & ETL</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Excel / Google Sheets</li>
                 </ul>
               </div>
             </motion.div>
@@ -99,22 +97,22 @@ export default function Home() {
               className="card-glass p-8 flex flex-col gap-6 group hover:border-primary/30"
             >
               <div className="flex flex-col gap-2">
-                <h3 className="text-3xl font-bold text-primary italic tracking-tight">Mobile Development</h3>
+                <h3 className="text-3xl font-bold text-primary italic tracking-tight">Machine Learning & Modeling</h3>
                 <div className="h-1 w-12 bg-primary/40 rounded group-hover:w-20 transition-all"></div>
 
                 <p className="text-white/50 leading-relaxed">
-                  I can develop high-performance mobile applications with modern frameworks. I am knowledgeable in:
+                  I apply quantitative methods and machine learning models to solve business challenges and forecast outcomes:
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <ul className="space-y-2 text-white/70">
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Android Studio</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Kotlin</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Jetpack Compose</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Scikit-learn</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Regression & Classification</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Time Series Forecasting</li>
                 </ul>
                 <ul className="space-y-2 text-white/70">
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> React Native</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Expo</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Feature Engineering</li>
+                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> Statistical Inference</li>
                 </ul>
               </div>
             </motion.div>
@@ -128,7 +126,7 @@ export default function Home() {
             <div className="flex flex-col gap-4">
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-0 text-center md:text-left">Featured Projects</h2>
               <p className="text-white/40 max-w-sm text-center md:text-left text-sm">
-                A collection of work spanning web, mobile, and game development.
+                A collection of work spanning data analytics, statistical modeling, and interactive dashboards.
               </p>
             </div>
             <Link href="/projects" className="group flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform">
@@ -170,7 +168,7 @@ export default function Home() {
               </div>
 
               <p className="text-white/80 leading-relaxed">
-                Bridging the gap between abstract theory and actionable insights. I specialize in developing rigorous models that translate complex variables into predictable outcomes.
+                Bridging the gap between mathematical rigor and business analytics. I specialize in developing statistical models that extract meaning from complex data.
               </p>
 
               <ul className="grid grid-cols-2 gap-3 text-sm text-white/60">
@@ -178,13 +176,13 @@ export default function Home() {
                   <span className="size-1.5 rounded-full bg-primary"></span> Statistical Modeling
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> Linear Algebra
+                  <span className="size-1.5 rounded-full bg-primary"></span> Hypothesis Testing
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> Differential Equations
+                  <span className="size-1.5 rounded-full bg-primary"></span> Quantitative Analysis
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> Probability Theory
+                  <span className="size-1.5 rounded-full bg-primary"></span> Probability & Inference
                 </li>
               </ul>
             </motion.div>
@@ -197,26 +195,26 @@ export default function Home() {
               className="card-glass p-10 flex flex-col gap-6 w-full group hover:border-primary/30 transition-all"
             >
               <div className="space-y-2">
-                <h4 className="text-3xl font-bold text-primary italic tracking-tight">Computer Scientist</h4>
+                <h4 className="text-3xl font-bold text-primary italic tracking-tight">Data Analyst</h4>
                 <div className="h-1 w-12 bg-primary/40 rounded group-hover:w-20 transition-all"></div>
               </div>
 
               <p className="text-white/80 leading-relaxed">
-                Designing efficient architectures and scalable algorithms. I focus on writing clean, performant code that leverages modern tech stacks to build robust digital solutions.
+                Transforming raw numbers into actionable storytelling. I leverage SQL, Python, and BI tools to automate reporting, uncover key trends, and support strategic decision-making.
               </p>
 
               <ul className="grid grid-cols-2 gap-3 text-sm text-white/60">
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> Computer Programming
+                  <span className="size-1.5 rounded-full bg-primary"></span> Data Visualization
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> Full-Stack Development
+                  <span className="size-1.5 rounded-full bg-primary"></span> SQL & Querying
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> Machine Learning
+                  <span className="size-1.5 rounded-full bg-primary"></span> Exploratory Analytics
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="size-1.5 rounded-full bg-primary"></span> System Analysis
+                  <span className="size-1.5 rounded-full bg-primary"></span> Dashboarding & BI
                 </li>
               </ul>
             </motion.div>
