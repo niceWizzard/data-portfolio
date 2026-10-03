@@ -1,234 +1,269 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Project } from "@/src/constants/projects";
+import { Project } from "@/src/lib/projects";
+import MarkdownRenderer from "./MarkdownRenderer";
+import { ImageModalProvider, useImageModal } from "./ImageModalProvider";
 
 interface ProjectDetailContentProps {
   project: Project;
 }
 
-export default function ProjectDetailContent({ project }: ProjectDetailContentProps) {
+function ProjectDetailView({ project }: ProjectDetailContentProps) {
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const images = useMemo(() => {
-    if (project.images?.length) return project.images;
-    if (project.image) return [project.image];
-    return [];
-  }, [project.image, project.images]);
-
-  const activeImage = images[activeIndex] ?? images[0];
-  const hasMultipleImages = images.length > 1;
-
-  const previousSlide = () => setActiveIndex((current) => (current - 1 + images.length) % images.length);
-  const nextSlide = () => setActiveIndex((current) => (current + 1) % images.length);
+  const { openImage } = useImageModal();
 
   return (
-    <div className="container-custom">
-      {/* Back Button */}
+    <div className="container-custom max-w-4xl">
+      {/* Top Navigation */}
       <motion.button
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         onClick={() => router.back()}
-        className="group flex items-center gap-2 text-white/40 hover:text-primary transition-colors mb-12 font-medium"
+        className="group flex items-center gap-2 text-white/40 hover:text-primary transition-colors mb-8 font-medium cursor-pointer text-sm"
       >
-        <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5" /><path d="m12 19-7-7 7-7" /></svg>
-        Go Back
+        <svg
+          className="w-4 h-4 transition-transform group-hover:-translate-x-1"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M19 12H5" />
+          <path d="m12 19-7-7 7-7" />
+        </svg>
+        Back to projects
       </motion.button>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-        {/* Main Content */}
-        <div className="lg:col-span-8 flex flex-col gap-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex flex-wrap gap-3 mb-6">
-              {project.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-none">
-              {project.name}
-            </h1>
-            <p className="text-xl text-white/70 leading-relaxed font-light">
-              {project.longDescription}
-            </p>
-          </motion.div>
-
-          {/* Project Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 group"
-          >
-            <div className="relative h-full w-full overflow-hidden">
-              <motion.div
-                key={activeImage}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0"
+      {/* Compact Header */}
+      <motion.header
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-8 flex flex-col gap-4 border-b border-white/10 pb-8"
+      >
+        {project.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold tracking-wide text-primary"
               >
-                <Image
-                  src={`/images/projects/${activeImage}`}
-                  alt={`${project.name} screenshot ${activeIndex + 1}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                  priority
-                />
-              </motion.div>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
-              <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent" />
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+          {project.name}
+        </h1>
 
-              {hasMultipleImages && (
-                <>
-                  <button
-                    type="button"
-                    onClick={previousSlide}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white hover:bg-black/60 transition-colors"
-                    aria-label="Previous project image"
-                  >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18 9 12l6-6" /></svg>
-                  </button>
+        {project.description && (
+          <p className="text-lg text-white/60 leading-relaxed font-light">
+            {project.description}
+          </p>
+        )}
 
-                  <button
-                    type="button"
-                    onClick={nextSlide}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white hover:bg-black/60 transition-colors"
-                    aria-label="Next project image"
-                  >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
-                  </button>
+        {/* Quick Action Links */}
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          {/* Required: Analysis File */}
+          {project.analysisFile && (
+            <Link
+              href={project.analysisFile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-xs py-2.5 px-5 rounded-lg"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="M8 13h8" />
+                <path d="M8 17h8" />
+                <path d="M10 9H8" />
+              </svg>
+              Analysis File
+            </Link>
+          )}
 
-                  <div className="absolute left-1/2 bottom-4 flex -translate-x-1/2 gap-2">
-                    {images.map((_, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => setActiveIndex(index)}
-                        className={`h-2.5 w-2.5 rounded-full transition-all ${index === activeIndex ? "bg-primary" : "bg-white/30 hover:bg-white/60"}`}
-                        aria-label={`View image ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Key Features */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col gap-8"
-          >
-            <h2 className="text-3xl font-bold tracking-tight border-b border-white/5 pb-4">Key Features</h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {project.features.map((feature, idx) => (
-                <li key={idx} className="flex gap-4 items-start p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/20 transition-all group">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary transition-colors">
-                    <svg className="w-3.5 h-3.5 text-primary group-hover:text-black transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
-                  </div>
-                  <span className="text-white/80 leading-snug">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-
-        {/* Sidebar / Info */}
-        <div className="lg:col-span-4 flex flex-col gap-8">
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col gap-4"
-          >
-            {
-              project.url ? (
-                <Link
-                href={project.url}
+          {/* Required: Data Sources */}
+          {Array.isArray(project.sources) ? (
+            project.sources.map((sourceUrl, idx) => (
+              <Link
+                key={sourceUrl}
+                href={sourceUrl}
                 target="_blank"
-                className="btn-primary w-full py-4 text-center justify-center shadow-2xl"
+                rel="noopener noreferrer"
+                className="btn-secondary text-xs py-2.5 px-5 rounded-lg"
               >
-                Visit
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-              </Link>
-              ) : (
-                <button
-                  disabled
-                  className="btn-primary w-full py-4 text-center justify-center shadow-2xl"
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  Unavailable
-            </button>
-              )
-            }
-            {project.videoLink && (
-              <Link
-                href={project.videoLink}
-                target="_blank"
-                className="btn-secondary w-full py-4 text-center justify-center"
-              >
-                Video
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                  <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+                </svg>
+                {project.sources.length > 1
+                  ? `Data Source ${idx + 1}`
+                  : "Data Source"}
               </Link>
-            )}
-            {project.githubUrl && (
-              <Link
-                href={project.githubUrl}
-                target="_blank"
-                className="btn-secondary w-full py-4 text-center justify-center"
+            ))
+          ) : project.sources ? (
+            <Link
+              href={project.sources}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary text-xs py-2.5 px-5 rounded-lg"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                GitHub Repository
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
-              </Link>
-            )}
-          </motion.div>
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+              </svg>
+              Data Source
+            </Link>
+          ) : null}
 
-          {/* Tech Stack */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="card-glass p-8 flex flex-col gap-6"
-          >
-            <h3 className="text-xl font-bold text-white tracking-tight italic">Tech Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
-                <span key={tech.name} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-sm text-white/70">
-                  {tech.name}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+          {/* Optional: GitHub Repo */}
+          {(project.githubRepo || project.githubUrl) && (
+            <Link
+              href={(project.githubRepo || project.githubUrl)!}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary text-xs py-2.5 px-5 rounded-lg"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+              </svg>
+              GitHub Repo
+            </Link>
+          )}
 
-          {/* Fun Fact/Meta? */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="p-8 rounded-3xl bg-primary/5 border border-primary/10"
-          >
-            <p className="text-xs text-primary font-bold uppercase tracking-widest mb-2">Project Scope</p>
-            <p className="text-sm text-white/60 leading-relaxed italic">
-              Developed as a part of my continuous learning journey, focusing on {project.tags[0].toLowerCase()} and modern architecture patterns.
-            </p>
-          </motion.div>
+          {/* Optional: Video Link */}
+          {project.videoLink && (
+            <Link
+              href={project.videoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary text-xs py-2.5 px-5 rounded-lg"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              Watch Video
+            </Link>
+          )}
         </div>
-      </div>
+      </motion.header>
+
+      {/* Optional Compact Hero Banner if image is provided */}
+      {project.image && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="relative aspect-video max-h-[260px] sm:max-h-[300px] w-full rounded-2xl overflow-hidden border border-white/10 mb-8 bg-white/5 group/banner cursor-pointer"
+          onClick={() => openImage(`/images/projects/${project.image}`, project.name)}
+        >
+          <Image
+            src={`/images/projects/${project.image}`}
+            alt={project.name}
+            fill
+            sizes="(max-width: 896px) 100vw, 896px"
+            className="object-cover transition-transform duration-500 group-hover/banner:scale-[1.02]"
+            priority
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent" />
+
+          {/* Fullscreen Trigger Overlay */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/banner:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                openImage(`/images/projects/${project.image}`, project.name);
+              }}
+              className="px-4 py-2 rounded-xl bg-black/70 border border-white/20 text-white text-xs font-semibold uppercase tracking-wider backdrop-blur-md flex items-center gap-2 hover:bg-primary hover:text-black transition-all hover:scale-105"
+              aria-label="View cover image fullscreen"
+            >
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+              </svg>
+              Fullscreen
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Primary Markdown Content */}
+      <motion.article
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="card-glass p-6 sm:p-10 md:p-12 border border-white/10"
+      >
+        <MarkdownRenderer content={project.content} />
+      </motion.article>
     </div>
+  );
+}
+
+export default function ProjectDetailContent({ project }: ProjectDetailContentProps) {
+  return (
+    <ImageModalProvider>
+      <ProjectDetailView project={project} />
+    </ImageModalProvider>
   );
 }
