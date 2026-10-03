@@ -1,5 +1,5 @@
 ---
-name: "Analysis Annual Family Income 2023"
+name: "Analysis of Annual Family Income 2023"
 description: "This analysis examines Philippine household earnings using 2023 FIES data to evaluate regional income disparities, revenue sources, and top-decile wealth concentration across provinces and highly urbanized cities. It reveals that population size does not drive higher average income, with top earning brackets remaining heavily centralized in Metro Manila alongside select regional economic hubs."
 tags: ["Excel", "PowerQuery", "PSA"]
 analysisFile: "https://1drv.ms/x/c/b7498abeee83b797/IQB4l_yuH4tLQ4gTd9DXSGyzAVhFMvSfQ4fd2xnHKsAklZA?e=hSKUY7"
