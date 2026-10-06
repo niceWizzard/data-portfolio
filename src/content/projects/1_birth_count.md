@@ -26,9 +26,11 @@ Data cleaning, transformation, and reconciliation were handled in Power BI using
 
 ### Dashboard
 
-A Power BI dashboard was developed to create a streamlined, interactive visualization of the birth statistics dataset. It features a `Date Slicer` for filtering data by month, alongside standard visualizations such as line charts, column charts, and pie charts. It also includes a geographic heatmap displaying the `birth_count` across various cities.
+A Power BI dashboard was developed to create a streamlined, interactive visualization of the birth statistics dataset. It features a `Date Slicer` for filtering data by month, alongside standard visualizations such as line charts, column charts, and pie charts. It also includes a geographic heatmap displaying the `birth_count` across various cities. Region can also be drilledthrough in a separate page for a more detailed look at the data (Figure 1B).
 
-![Figure 1: Dashboard](/images/projects/birthmain.png)
+![Figure 1A: Dashboard](/images/projects/birthmain.png)
+![Figure 1B: Region Drill Through](/images/projects/birthdt.png)
+
 
 ### Total Statistics
 
@@ -36,17 +38,25 @@ According to the PSA, a total of **1.36 million** births were registered in the 
 
 ![Figure 2: Sex Distribution](/images/projects/birth4.png)
 
+### Birth Count per Month
+
+Figure 3 shows the registered birth count sorted by the month with October recorded as the month of highest birth count of *128.5k* followed closely by September, November, December, and January. A huge dip can be seen by February only recording *96.9k* births and recovering in the proceeding months. 
+
+![Figure 3: Birth Count per Month](/images/projects/birth5.png)
+
+
+
 ### Geographical Rankings
 
 Figure 3 illustrates the ranking of registered births by region. **Region IV-A (CALABARZON)** recorded the highest birth count by a significant margin, with **205,000** births registered in 2024. It is followed by Region III, the National Capital Region (NCR), Region V, and Region VII.
 
-![Figure 3: Top Region by Birth Count](/images/projects/birth3.png)
+![Figure 4: Top Region by Birth Count](/images/projects/birth3.png)
 
 When analyzing the data by province (excluding Metro Manila), **Cebu** recorded the highest birth count across all provinces with **72,000** births. It is followed by Cavite, Bulacan, Rizal, and Laguna.
 
-![Figure 4: Top Province by Birth Count](/images/projects/birth2.png)
+![Figure 5: Top Province by Birth Count](/images/projects/birth2.png)
 
-![Figure 5: Top City by Birth Count](/images/projects/birth1.png)
+![Figure 6: Top City by Birth Count](/images/projects/birth1.png)
 
 At the city level, **Quezon City** leads with **32,600** births, followed by the City of Davao, the City of Manila, Caloocan, Taguig, and Cebu City. Notably, 5 of the Top 10 cities are located within the NCR, which aligns with the sheer population density of the region.
 
